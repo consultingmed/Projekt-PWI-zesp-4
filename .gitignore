@@ -1,0 +1,10 @@
+```gitignore
+# C++ binaries
+*.exe
+*.o
+*.out
+/bin/
+
+# Python cache
+__pycache__/
+*.py[cod]
