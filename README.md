@@ -14,3 +14,29 @@ Oraz przy 1) i 3) aspoekcie: możliwość wypisywania (i wczytywania) na standar
 # Dane zespołu
 Zespół 4, opiekun Piotr Ostropolski-Nalewaja, skład: 
 359949 359409 351683 361008 360678 331060 [Python i C++]
+
+# Planowana struktura repozytorium
+/Projekt-PWI-zesp-4
+│
+├── README.md               # Instrukcja uruchomienia, autorzy, opis (P3)
+├── .gitignore              # Ignorowanie plików .o, .exe, __pycache__, .txt (P3)
+│
+├── /data                   # Folder wymiany danych
+│   ├── .gitkeep            # Żeby git widział pusty folder
+│   ├── cube_state.txt      # Generuje P1 lub P3 -> Czyta C1
+│   └── solution_steps.txt  # Generuje C1/C2 -> Czyta P2 lub P3
+│
+├── /src_cpp                # Kod źródłowy C++
+│   ├── main.cpp            # (C1) Ładuje dane, uruchamia solver
+│   ├── Cube.cpp / .h       # (C1) Struktura
+│   ├── Solver.cpp / .h     # (C2) Algorytm
+│   └── Heuristics.cpp / .h # (C3) Optymalizacja
+│
+├── /src_py                 # Kod źródłowy Python
+│   ├── main.py             # (P3) Główny skrypt sterujący (menu, timeout)
+│   ├── input_gui.py        # (P1) Okno wprowadzania
+│   ├── vis_gui.py          # (P2) Okno wizualizacji
+│   └── cli_handler.py      # (P3) Obsługa konsoli
+│
+└── /docs                   # Dokumentacja projektowa
+    └── format_pliku.md     # KRYTYCZNE: Opis jak wyglądają pliki .txt
