@@ -17,6 +17,7 @@ int main()
 	vector<int> opt(all_states, inf);
 	map<array<int, 12>, int> visited;
 	int cnt = 0;
+	vector<string> moves = {"U", "D", "R", "L", "F", "B"};
 	while(!q.empty())
 	{
 		auto [akt, dist] = q.front();
@@ -26,10 +27,10 @@ int main()
 		opt[to_int(akt)] = min(dist, opt[to_int(akt)]);
 		if(cnt == all_states/2) break;
 		visited[akt.ep] = 1;
-		for(int i=0;i<MOVES;i++)
+		for(auto& v : moves)
 		{
 			cube nxt = akt;
-			nxt.move(i);
+			nxt.move(v);
 			if(visited[nxt.ep] == 0)
 				q.push(make_pair(nxt, dist+1));
 		}

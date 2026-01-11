@@ -1,7 +1,6 @@
 #pragma once
 #include<bits/stdc++.h>
 using namespace std;
-#define MOVES 6
 class cube
 {
 public:
@@ -20,5 +19,5 @@ public:
 	void F();
 	
 	void print();
-	void move(int id);
+	void move(string id);
 };

@@ -187,12 +187,26 @@ void cube::print()
 
 	//Dokładna orientacja ścianki będzie zależeć specyfikacji programu wizualizującego w pythonie
 }
-void cube::move(int id) {
-    if(id==0) U();
-    if(id==1) D();
-    if(id==2) R();
-    if(id==3) L();
-    if(id==4) F();
-    if(id==5) B();
+void cube::move(string id) {
+    if(id=="U") U();
+    if(id=="D") D();
+    if(id=="R") R();
+    if(id=="L") L();
+    if(id=="F") F();
+    if(id=="B") B();
+
+    if(id=="Up") {U(); U(); U();}
+    if(id=="Dp") {D(); D(); D();}
+    if(id=="Rp") {R(); R(); R();}
+    if(id=="Lp") {L(); L(); L();}
+    if(id=="Fp") {F(); F(); F();}
+    if(id=="Bp") {B(); B(); B();}
+
+    if(id=="U2") {U(); U();}
+    if(id=="D2") {D(); D();}
+    if(id=="R2") {R(); R();}
+    if(id=="L2") {L(); L();}
+    if(id=="F2") {F(); F();}
+    if(id=="B2") {B(); B();}
 }
 
