@@ -14,14 +14,15 @@ Oraz przy 1) i 3) aspoekcie: możliwość wypisywania (i wczytywania) na standar
 
 ## Dokumentacja (Doxygen)
 
-Projekt wykorzystuje narzędzie **Doxygen** do automatycznego generowania dokumentacji dla kodu C++ oraz Python. Pliki dokumentacji (HTML/LaTeX) nie są przechowywane w repozytorium (są ignorowane przez `.gitignore`). Po pobraniu repozytorium należy je wygenerować lokalnie.
+Projekt wykorzystuje narzędzie **Doxygen** do automatycznego generowania dokumentacji dla kodu C++ oraz Python. Pliki dokumentacji (HTML/LaTeX) nie są przechowywane w repozytorium (są ignorowane przez `.gitignore`). Po pobraniu repozytorium należy pobrać Doxygen:
   ```bash
   sudo apt install doxygen
   ```
-A nastepnie wygenerować
+A nastepnie wygenerować pliki:
   ```bash
   doxygen Doxyfile
   ```
+Dokumentacja powinna wtedy znaleźć się w pliku html/index.html oraz latex/refman.tex
 
 
 # Dane zespołu
