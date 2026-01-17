@@ -11,6 +11,19 @@ Użytkownik wprowadza stan początkowy kostki na interaktywnej planszy. Program 
 
 Oraz przy 1) i 3) aspoekcie: możliwość wypisywania (i wczytywania) na standardowe wyjście
 
+
+## Dokumentacja (Doxygen)
+
+Projekt wykorzystuje narzędzie **Doxygen** do automatycznego generowania dokumentacji dla kodu C++ oraz Python. Pliki dokumentacji (HTML/LaTeX) nie są przechowywane w repozytorium (są ignorowane przez `.gitignore`). Po pobraniu repozytorium należy je wygenerować lokalnie.
+  ```bash
+  sudo apt install doxygen
+  ```
+A nastepnie wygenerować
+  ```bash
+  doxygen Doxyfile
+  ```
+
+
 # Dane zespołu
 Zespół 4, opiekun Piotr Ostropolski-Nalewaja, skład: 
 359949 359409 351683 361008 360678 331060 [Python i C++]
@@ -42,12 +55,4 @@ Zespół 4, opiekun Piotr Ostropolski-Nalewaja, skład:
 │
 └── /docs                   # Dokumentacja projektowa
     └── format_pliku.md     # KRYTYCZNE: Opis formatu plików .txt
-
-## Dokumentacja (Doxygen)
-
-Projekt wykorzystuje narzędzie **Doxygen** do automatycznego generowania dokumentacji dla kodu C++ oraz Python. Pliki dokumentacji (HTML/LaTeX) nie są przechowywane w repozytorium (są ignorowane przez `.gitignore`). Po pobraniu repozytorium należy je wygenerować lokalnie.
-  ```bash
-  sudo apt install doxygen
-A nastepnie wygenerować
-  ```bash
-  doxygen Doxyfile
+```
