@@ -8,3 +8,8 @@
 # Python cache
 __pycache__/
 *.py[cod]
+
+# Doxygen documentation output
+docs/html/
+docs/latex/
+*.log
