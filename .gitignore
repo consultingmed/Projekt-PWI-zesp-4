@@ -10,6 +10,6 @@ __pycache__/
 *.py[cod]
 
 # Doxygen documentation output
-docs/html/
-docs/latex/
+documentation/html/
+documentation/latex/
 *.log
