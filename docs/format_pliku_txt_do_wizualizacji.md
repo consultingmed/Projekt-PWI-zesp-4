@@ -7,7 +7,7 @@ Plik tekstowy ma opisywać kolejne stany kostki Rubika 3x3x3
 ---
 (stan 3)
 ---
-itd.
+...
 
 
 Jeden stan składa się z 6 ścian kostki, zapisanych zawsze w następującej kolejności:
