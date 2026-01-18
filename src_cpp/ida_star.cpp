@@ -2,6 +2,8 @@
 #include "cube.h"
 #include "debug.h"
 #include "eoh.h"
+#include "eph.h"
+#include "cph.h"
 using namespace std;
 typedef long long LL;
 
