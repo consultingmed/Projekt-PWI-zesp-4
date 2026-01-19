@@ -10,18 +10,13 @@ typedef long long LL;
 #define inf 1000000000
 
 string moves[20] = {
-"U", "Up", "U2", 
-"D", "Dp", "D2", 
-"R", "Rp", "R2", 
-"L", "Lp", "L2", 
+"U","Up","U2",
+"D","Dp","D2",
+"R2","L2","F2","B2",
+"R", "Rp",
+"L", "Lp", 
 "F", "Fp", "F2", 
-"B", "Bp", "B2"
-};
-
-string moves_phase2[] = {
-    "U","Up","U2",
-    "D","Dp","D2",
-    "R2","L2","F2","B2"
+"B", "Bp"
 };
 
 eoh EOH;
