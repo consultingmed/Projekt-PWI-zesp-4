@@ -9,14 +9,20 @@ typedef long long LL;
 
 #define inf 1000000000
 
-string moves[20] = {
-"U","Up","U2",
-"D","Dp","D2",
-"R2","L2","F2","B2",
-"R", "Rp",
-"L", "Lp", 
-"F", "Fp",
-"B", "Bp"
+string moves1[20] = {
+"U", "Up", "U2",
+"D", "Dp", "D2",
+"R", "Rp", "R2",
+"L", "Lp", "L2",
+"F", "Fp", "F2",
+"B", "Bp", "B2"
+
+};
+
+string moves2[10] = {
+"U", "Up", "U2",
+"D", "Dp", "D2",
+"R2", "L2", "F2", "B2"
 };
 
 eoh EOH;
@@ -73,9 +79,7 @@ int getheuristic(cube &node, int stage){
 	return max(CPH.get_cph(node), EPH.get_eph(node)); // gdy faza 2
 }
 
-int search(vector <cube> &path, int price, int bound, int stage){
-
-	cube node = path.back();
+int search(cube node, vector <string> &move_path, int price, int bound, int stage){
 	
 	int f = price + getheuristic(node, stage);
 	
@@ -85,38 +89,41 @@ int search(vector <cube> &path, int price, int bound, int stage){
 	
 	int mint = inf, move_count = (stage == 1 ? 18 : 10);
 	for (int i = 0; i < move_count; i++){
+	
 		cube newcube=node;
+		string new_move=(stage == 1 ? moves1[i] : moves2[i]);
 		
-		newcube.move(moves[i]);
+		if (!move_path.empty()) {
+    		if (new_move[0]==move_path.back()[0])
+        	continue;
+		}
 		
-		if (find(path.begin(), path.end(), newcube) != path.end()) 
-    		continue; // sprawdzenie czy stan nie był już odwiedzony
+		newcube.move(new_move);
     	
-		path.push_back(newcube);
+		move_path.push_back(new_move);
 
-		int t = search(path, price+1, bound, stage);
+		int t = search(newcube, move_path, price+1, bound, stage);
 		if(t == -1) return t;
 		mint = min(mint, t);
 		
-		path.pop_back();
+		move_path.pop_back();
 	
 	}
 	return mint;
 	
 }
 
-pair<vector<cube>, int> ida_star(cube root, int stage){
+pair<vector<string>, int> ida_star(cube root, int stage){
 	
 	
 	int bound=getheuristic(root, stage); //ustawienie początkowego zakresu przeszukiwania
 	
-	vector <cube> path;
-	path.push_back(root);
+	vector <string> move_path;
 	
 	while(true){
-		int t = search(path, 0, bound, stage); 
-		if(t == -1) return {path, bound};
-		if(t >= inf) return {path, -1};
+		int t = search(root, move_path, 0, bound, stage); 
+		if(t == -1) return {move_path, bound};
+		if(t >= inf) return {move_path, -1};
 		bound = t;
 	}
 }
