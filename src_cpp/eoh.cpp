@@ -2,7 +2,7 @@
 #include "eoh.h"
 eoh::eoh()
 {
-	ifstream data("eoh.txt");
+	ifstream data("../data/eoh.txt");
 	if(!data)
 	{
 		cout<<"Dane heurystyki eoh nie zostały wygenerowane!\n";
