@@ -1,6 +1,7 @@
 // modul udostepniajacy makro debug(X) 
 // pozwalajacy wypisac na wyjscie diagnostyczne dowolna liczbe obiektow ponizej postaci:
 // zmienna / kontener iterowalny / para zlozona z dowolnej kombinacji dwoch powyzszych
+#pragma once
 #include<bits/stdc++.h>
 using namespace std;
 #ifdef DEBUG
