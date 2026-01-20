@@ -1,3 +1,8 @@
+##
+# @file cube_input_gui.py
+# @brief Moduł interfejsu graficznego do wprowadzania stanu kostki Rubika.
+# @details Pozwala użytkownikowi na "pomalowanie" siatki kostki, weryfikuje poprawność wprowadzonych danych (liczba kolorów, kompletność) i zapisuje je do pliku tekstowego.
+
 import tkinter as tk
 from tkinter import messagebox
 
@@ -23,7 +28,13 @@ POLISH_NAME = {
 
 
 class InputGUI:
+    ##
+    # @brief Główna klasa zarządzająca interfejsem graficznym.
     def __init__(self, root):
+        ##
+        # @brief Konstruktor klasy InputGUI.
+        # @details Inicjalizuje główne okno, zmienne stanu i buduje układ interfejsu.
+        # @param root Obiekt głównego okna tkinter (tk.Tk).
         self.root = root
         self.root.title("Siatka kostki")
         self.root.columnconfigure(0, weight=1)
@@ -38,6 +49,9 @@ class InputGUI:
         save_button.grid(row=2, column=0, pady=20, sticky="ew", padx=50)
         
     def create_palette(self):
+        ##
+        # @brief Tworzy górny pasek z paletą kolorów i przyciskiem instrukcji.
+        # @details Generuje przyciski dla każdego koloru zdefiniowanego w COLORS (oprócz szarego).
         palette_frame = tk.Frame(self.root, pady=10, bg="#dddddd")
         palette_frame.grid(row=0, column=0, sticky="ew")
         tk.Label(palette_frame, text="Wybierz kolor: ", bg="#dddddd", font=("Arial", 12)).pack(side=tk.LEFT, padx=10)
@@ -52,6 +66,8 @@ class InputGUI:
         help_button.pack(side=tk.RIGHT, padx=20)
         
     def show_instructions(self):
+        ##
+        # @brief Wyświetla okno dialogowe z instrukcją obsługi programu.
         text = (
             "JAK KORZYSTAĆ Z PROGRAMU:\n\n"
             "1. Wybierz kolor z paska na górze.\n"
@@ -64,9 +80,15 @@ class InputGUI:
         messagebox.showinfo("Instrukcja", text)
             
     def set_brush(self, color):
+        ##
+        # @brief Ustawia aktualnie używany kolor "pędzla".
+        # @param color Nazwa koloru (klucz ze słownika COLORS).
         self.current_color = color
 
     def create_grid(self):
+        ##
+        # @brief Konfiguruje układ siatki i rozmieszcza ścianki kostki.
+        # @details Definiuje mapowanie nazw ścianek (U, L, F, R, B, D) na pozycje (x, y).
         for col in range(12):
             self.grid_frame.columnconfigure(col, weight=1)
         for row in range(9):
@@ -83,6 +105,12 @@ class InputGUI:
             self.create_face(face_name, offset_x, offset_y)
 
     def create_face(self, face_name, offset_x, offset_y):
+        ##
+        # @brief Tworzy siatkę 3x3 przycisków dla pojedynczej ścianki.
+        # @details Obsługuje logikę blokowania środków ścian (center tiles).
+        # @param face_name Symbol ścianki (np. 'U', 'F').
+        # @param offset_x Pozycja kolumny w głównej siatce.
+        # @param offset_y Pozycja wiersza w głównej siatce.
         center_colors = {
             'U': 'white',
             'D': 'yellow',
@@ -105,10 +133,16 @@ class InputGUI:
                 self.tiles[(face_name, r, c)] = button
                 
     def paint_tile(self, button_widget):
+        ##
+        # @brief Zmienia kolor tła klikniętego przycisku.
+        # @param button_widget Obiekt przycisku, który został kliknięty.
         color_hex = COLORS[self.current_color]
         button_widget.configure(bg=color_hex)
         
     def verify_and_save(self):
+        ##
+        # @brief Weryfikuje poprawność stanu kostki i inicjuje zapis.
+        # @details Sprawdza czy nie ma szarych pól oraz czy każdy kolor występuje dokładnie 9 razy. Jeśli weryfikacja przebiegnie pomyślnie, wywołuje save_to_file() i zamyka program.
         color_counts = {name: 0 for name in COLORS if name != 'grey'}
         result = {}
         for (face_name, r, c), button in self.tiles.items():
@@ -128,6 +162,10 @@ class InputGUI:
         self.root.destroy()
 
     def save_to_file(self, data):
+        ##
+        # @brief Zapisuje przetworzone dane do pliku cube_input.txt.
+        # @details Dokonuje transformacji danych (mapowanie nazw na litery) oraz obraca ściankę 'U' o 180 stopni zgodnie z wymaganiami algorytmu.
+        # @param data Słownik zawierający stan kostki { (face, r, c): color_name }.
         colors = {
             'white': 'W',
             'yellow': 'Y',
