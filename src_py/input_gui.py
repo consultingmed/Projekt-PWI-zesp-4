@@ -34,10 +34,7 @@ class InputGUI:
         self.grid_frame = tk.Frame(self.root, bg="#eeeeee", padx=25, pady=25)
         self.grid_frame.grid(row=1, column=0, sticky="nsew")
         self.create_grid()
-        save_button = tk.Button(self.root, text="ZAPISZ", 
-                             bg="#4CAF50", fg="white",
-                             font=("Arial", 12, "bold"),
-                             command=self.verify_and_save)
+        save_button = tk.Button(self.root, text="ZAPISZ", bg="#4CAF50", fg="white", font=("Arial", 12, "bold"), command=self.verify_and_save)
         save_button.grid(row=2, column=0, pady=20, sticky="ew", padx=50)
         
     def create_palette(self):
@@ -47,9 +44,24 @@ class InputGUI:
         
         for color_name, color_hex in COLORS.items():
             if color_name == 'grey': continue
-            button = tk.Button(palette_frame, bg=color_hex, width=4, height=2,
-                            command=lambda c=color_name: self.set_brush(c))
+            button = tk.Button(palette_frame, bg=color_hex, width=4, height=2, command=lambda c=color_name: self.set_brush(c))
             button.pack(side=tk.LEFT, padx=5)
+            
+        help_button = tk.Button(palette_frame, text="Instrukcja", bg="#2196F3",
+                fg="white", font=("Arial", 11, "bold"), command=self.show_instructions)
+        help_button.pack(side=tk.RIGHT, padx=20)
+        
+    def show_instructions(self):
+        text = (
+            "JAK KORZYSTAĆ Z PROGRAMU:\n\n"
+            "1. Wybierz kolor z paska na górze.\n"
+            "2. Kliknij w pole na siatce, aby je pomalować.\n"
+            "3. Środkowe pola ścian są zablokowane – one wyznaczają kolor całej ściany.\n"
+            "4. Musisz pomalować całą kostkę (bez szarych pól).\n"
+            "5. Każdego koloru musi być dokładnie 9 kafelków.\n"
+            "6. Gdy skończysz, kliknij zielony przycisk ZAPISZ."
+        )
+        messagebox.showinfo("Instrukcja", text)
             
     def set_brush(self, color):
         self.current_color = color
@@ -86,12 +98,7 @@ class InputGUI:
                 if r == 1 and c == 1:
                     text_on_button = face_name
                     color_bg = COLORS[center_colors[face_name]]
-                button = tk.Button(self.grid_frame, 
-                                bg=color_bg,
-                                text=text_on_button,
-                                borderwidth=1,
-                                relief="solid",
-                                font=("Arial", 15, "bold"))
+                button = tk.Button(self.grid_frame, bg=color_bg, text=text_on_button, borderwidth=1, relief="solid", font=("Arial", 15, "bold"))
                 if r != 1 or c != 1:
                     button.config(command=lambda b=button: self.paint_tile(b))
                 button.grid(row=offset_y + r, column=offset_x + c, sticky="nsew", padx=1, pady=1)
