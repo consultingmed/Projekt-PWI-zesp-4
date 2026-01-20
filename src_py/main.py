@@ -1,3 +1,8 @@
+## @file main.py
+#  @brief Główny skrypt orkiestrujący działanie aplikacji.
+#  @details Odpowiada za wybór trybu wprowadzania danych (CLI/GUI),
+#           uruchomienie solvera C++ oraz wizualizację wyników.
+
 import argparse
 import sys
 import subprocess
@@ -16,6 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 CPP_EXEC = BASE_DIR / "src_cpp" / "main"
 GUI_SCRIPT = BASE_DIR / "src_py" / "vis_gui.py"
 
+##
+# @brief Uruchamia solver napisany w C++.
+# @details Wywołuje plik wykonywalny z flagą --solve.
+# @return True jeśli solver zakończył się sukcesem, False w przeciwnym razie.
 def run_cpp_solver():
     """Runs the C++ solver executable."""
     if not CPP_EXEC.exists():
@@ -34,6 +43,10 @@ def run_cpp_solver():
         print(f"Wykonanie nie powiodło się: {e}")
         return False
 
+##
+# @brief Uruchamia wizualizację rozwiązania.
+# @details Kopiuje wynik solvera do pliku test.txt (wymagane przez vis_gui.py)
+#          i uruchamia skrypt wizualizacji.
 def run_gui():
     """Runs the visualization GUI."""
     print(f"\nUruchamianie wizualizacji...")
@@ -41,8 +54,6 @@ def run_gui():
         print(f"Błąd: Nie znaleziono skryptu GUI w {GUI_SCRIPT}")
         return
 
-    # Workaround: vis_gui.py expects "test.txt" in CWD.
-    # Copy our output to test.txt
     try:
         if OUTPUT_FILE.exists():
             shutil.copy(str(OUTPUT_FILE), "test.txt")
@@ -56,6 +67,10 @@ def run_gui():
     except Exception as e:
         print(f"Nie udało się uruchomić GUI: {e}")
 
+##
+# @brief Główna funkcja programu.
+# @details Parsuje argumenty wiersza poleceń, steruje przepływem danych
+#          między modułami inputu, solvera i wizualizacji.
 def main():
     parser = argparse.ArgumentParser(description="Rubik's Cube Solver Orchestrator")
     parser.add_argument('--terminal', "-t", action='store_true', help="Use terminal input mode")
@@ -64,8 +79,6 @@ def main():
     
     cube_state_ready = False
     
-    if args.terminal:
-        cli = SolverCLI()
     if args.terminal:
         cli = SolverCLI()
         print("Uruchamianie trybu terminalowego...")
@@ -77,18 +90,14 @@ def main():
         print("Uruchamianie trybu graficznego (GUI)...")
         try:
             root = tk.Tk()
-            # Ensure window is large enough
             root.minsize(600, 500)
             app = input_gui.InputGUI(root)
             root.mainloop()
             
-            # Check for the file created by input_gui.py
-            gui_output = Path.cwd() / "cube_input.txt" # It saves in CWD
-            # Verify if input_gui's CWD is same as here. Yes, normally.
+            gui_output = Path.cwd() / "cube_input.txt"
             
             if gui_output.exists():
                 print(f"GUI zamknięte. Przenoszenie {gui_output} do {INPUT_FILE}...")
-                # Ensure destination directory exists
                 DATA_DIR.mkdir(exist_ok=True)
                 shutil.move(str(gui_output), str(INPUT_FILE))
                 cube_state_ready = True
