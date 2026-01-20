@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 		for(auto& v : seq)
 		{		
 			state.print();
-			cout<<"----"<<endl;
+			cout<<"---"<<endl;
 			state.move(v);
 			cerr<<v<<" ";
 		}
