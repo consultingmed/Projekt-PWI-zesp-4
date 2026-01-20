@@ -18,6 +18,7 @@ public:
 	void B();
 	void F();
 	
+	void read();
 	void print();
 	void move(string id);
 };

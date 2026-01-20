@@ -10,7 +10,27 @@ int main(int argc, char* argv[])
 {
 	if(argc == 1)
 	{
-				
+		cerr<<"Wczytano heurystyki"<<endl;
+		cube state;
+		state.read();
+		cerr<<"Udane wczytanie stanu kostki"<<endl;
+		auto seq = ida_star(state, 1);
+		for(auto& v : seq)
+		{		
+			state.print();
+			cout<<"----"<<endl;
+			state.move(v);
+			cerr<<v<<" ";
+		}
+		seq = ida_star(state, 2);
+		for(auto& v : seq)
+		{
+			state.print();
+			cout<<"---"<<endl;
+			state.move(v);
+			cerr<<v<<" ";
+		}
+		state.print();
 		return 0;
 	}
 	if(argc == 2 && strcmp(argv[1], "--moves") == 0)

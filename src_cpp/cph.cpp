@@ -3,6 +3,7 @@
 #include "lehmer_code.h"
 cph::cph()
 {
+	cerr<<"Rozpoczecie wczytywania cph.txt"<<endl;	
 	ifstream file("../data/cph.txt");
 	if(!file) 
 	{

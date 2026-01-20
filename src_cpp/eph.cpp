@@ -4,13 +4,18 @@
 eph::eph()
 {
 	ifstream file("../data/eph.txt");
+	cerr<<"Rozpoczęcie wczytywania eph.txt"<<endl;
 	if(!file) 
 	{
 		cerr<<"Nie wygenerowane danych cph!\n";
 		exit(0);
 	}
 	for(int i=0;i<479001600;i++)
+	{
+		if(i != 0 && i%100000000 == 0)
+			cerr<<"Wczytano kolejne 100MB"<<endl;
 		file>>_eph[i];
+	}
 }
 int eph::get_eph(cube& state)
 {
