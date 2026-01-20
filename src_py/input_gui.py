@@ -11,6 +11,15 @@ COLORS = {
     'grey':   '#D3D3D3'
 }
 HEX_TO_NAME = {v: k for k, v in COLORS.items()}
+POLISH_NAME = {
+    'white':  'biały',
+    'yellow': 'żółty',
+    'green':  'zielony',
+    'blue':   'niebieski',
+    'red':    'czerwony',
+    'orange': 'pomarańczowy',
+    'grey':   'szary'
+}
 
 
 class InputGUI:
@@ -83,7 +92,8 @@ class InputGUI:
                                 borderwidth=1,
                                 relief="solid",
                                 font=("Arial", 15, "bold"))
-                button.config(command=lambda b=button: self.paint_tile(b))
+                if r != 1 or c != 1:
+                    button.config(command=lambda b=button: self.paint_tile(b))
                 button.grid(row=offset_y + r, column=offset_x + c, sticky="nsew", padx=1, pady=1)
                 self.tiles[(face_name, r, c)] = button
                 
@@ -98,16 +108,17 @@ class InputGUI:
             bg_color_hex = button.cget('bg')
             color_name = HEX_TO_NAME[bg_color_hex]
             if color_name == 'grey':
-                messagebox.showerror("Błąd", "Kostka nie jest w pełni pomalowana!\nUzupełnij szare pola.")
+                messagebox.showerror("Błąd", "Kostka nie jest w pełni pomalowana.\nUzupełnij szare pola.")
                 return
             color_counts[color_name] += 1
             result[(face_name, r, c)] = color_name
         for color, count in color_counts.items():
             if count != 9:
-                messagebox.showerror("Błąd", f"Niepoprawna liczba kolorów!\n\nKolor {color.upper()} występuje {count} razy.\n(Powinien występować dokładnie 9 razy).")
+                messagebox.showerror("Błąd", f"Każdy kolor powinien występować 9 razy.\n{POLISH_NAME[color].upper()} występuje {count} razy.")
                 return
         messagebox.showinfo("Sukces", "Kostka jest poprawna! Zapisuję dane.")
         self.save_to_file(result)
+        self.root.destroy()
 
     def save_to_file(self, data):
         colors = {
@@ -126,7 +137,10 @@ class InputGUI:
                     for r in range(3):
                         row_colors = []
                         for c in range(3):
-                            name = data[(face, r, c)]
+                            if face == 'U':
+                                name = data[(face, 2-r, 2-c)]
+                            else:
+                                name = data[(face, r, c)]
                             letter = colors[name]
                             row_colors.append(letter)
                         line = " ".join(row_colors)
