@@ -85,6 +85,7 @@ int search(vector<string>& seq, cube node, int price, int bound, int stage){
 	
 	int mint = inf, move_count = 6;
 	for (int i = 0; i < move_count; i++){
+	
 		cube newcube=node;
 		seq.push_back(moves[i]);
 		newcube.move(moves[i]);
